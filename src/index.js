@@ -36,7 +36,9 @@ function GeoJSONVT(data, options) {
         this.total = 0;
     }
 
-    features = wrap(features, options.buffer / options.extent);
+    if (!options.noWrap) {
+        features = wrap(features, options.buffer / options.extent);
+    }
 
     // start slicing from the top tile down
     if (features.length) this.splitTile(features, 0, 0, 0);
@@ -161,7 +163,9 @@ GeoJSONVT.prototype.getTile = function (z, x, y) {
     if (z < 0 || z > 24) return null;
 
     var z2 = 1 << z;
-    x = ((x % z2) + z2) % z2; // wrap tile x coordinate
+    if (!options.noWrap) {
+        x = ((x % z2) + z2) % z2; // wrap tile x coordinate
+    }
 
     var id = toID(z, x, y);
     if (this.tiles[id]) return transform.tile(this.tiles[id], extent);

@@ -122,7 +122,10 @@ function projectX(x) {
 }
 
 function projectY(y) {
+    /*
     var sin = Math.sin(y * Math.PI / 180);
-    var y2 = 0.5 - 0.25 * Math.log((1 + sin) / (1 - sin)) / Math.PI;
+    var y2 = 0.5 - (sin / Math.PI);//Math.log((1 + sin) / (1 - sin)) / Math.PI;
     return y2 < 0 ? 0 : y2 > 1 ? 1 : y2;
+    */
+   return 0.5 - y / 360;
 }
